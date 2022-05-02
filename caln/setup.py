@@ -38,7 +38,7 @@ setuptools.setup(
     description="Adaptive Logic Networks - PyTorch Implementation",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://devicesasg.visualstudio.com/Incubation/_git/ALNEval",
+    url="https://github.com/microsoft/ConvolutionALNs",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
