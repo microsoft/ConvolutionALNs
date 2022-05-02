@@ -1,0 +1,12 @@
+﻿*.user
+**/.vs
+**/x64
+**/packages
+**/wandb
+**/files
+**/__pycache__
+
+/caln/alntorch.egg-info
+/mnist/data/*.json
+/mnist/ProcessMnistData/bin
+/mnist/ProcessMnistData/obj
