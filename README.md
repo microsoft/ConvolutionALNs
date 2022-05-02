@@ -10,6 +10,7 @@ in the paper: [Convolutional Adaptive Logic Networks: A First Approach](https://
 ### Requirements
 
 The code in this repository is tested under the following requirements:
+ - python 3.9
  - pytorch: 1.11.0 (stable)
  - cuda: 10.2
  - tensorboard: 2.0.0
@@ -23,7 +24,6 @@ The code in this repository is tested under the following requirements:
 This is a development codebase. Therefore, it is suggested to install the code in the caln subdirectory as a Python development package:
 
 ```
-
 cd caln
 pip install -e .
 
@@ -31,13 +31,19 @@ pip install -e .
 
 ### General usage and guidelines
 
-The main class that implements CALN is `ConvolutionALNet` in core/caln.py. A sample usage is given in trainings/models.py. Basically, `ConvolutionALNet` receives a backbone and attaches an ALN at its end. Note that the ALN weights are not updated by a gradient descent method. However, the gradients are propagated through the ALN back to the backbone weights.
+The main class that implements CALN is `ConvolutionALNet` in **caln/alntorch/core/caln.py**. A sample usage is given in **caln/alntorch/trainings/models.py**. Basically, `ConvolutionALNet` receives a backbone and attaches an ALN at its end. Note that the ALN weights are not updated by a gradient descent method. However, the gradients are propagated through the ALN back to the backbone weights.
 
 `forward` method receives a tensor and runs the entire network to produce the output.
 `adapt` should be used at each training iteration to update ALN weights.
 `grow` should be used at split iteration.
 
-The main code, that trains a variety of CALNs on CIFAR-10 dataset is in caln/trainings/train_cifar10.py. The command line input options to this script is described in training/common_utils.py. You can also see the list by entering `$ python train_cifar10.py` at the command line in trainings/ folder. Note that train_cifar10.py can also be used to train a couple of ResNet architectures. You can use the following command lines to approximately reproduce the reported results in the paper (all of the experiments run on GPU):
+### Experiments
+
+Running the experiments from the paper using the commands below assumes that the current directory is **caln/alntorch/trainings**.
+
+The main code, that trains a variety of CALNs on CIFAR-10 dataset is in **train_cifar10.py**. The command line input options to this script is described in **common_utils.py**. You can also see the list by entering `$ python train_cifar10.py` at the command line.
+
+Note that **train_cifar10.py** can also be used to train a couple of ResNet architectures. You can use the following command lines to approximately reproduce the reported results in the paper (all of the experiments run on GPU):
 
 * ResNet13+ALN:
 `python train_cifar10.py --name CALN_ResNet13_Cifar10 --model CALN --optimizer SGD --epochs 1000 --lr 0.1 --aln_lr 0.01 --init_pieces 3 --root_op min --split_step 15 --max_splits 1  --split_step_increment 2 --device cuda:0`
@@ -48,7 +54,7 @@ The main code, that trains a variety of CALNs on CIFAR-10 dataset is in caln/tra
 * ResNet18:
 `python train_cifar10.py --name ResNet18_Cifar10 --model ResNet18 --optimizer SGD --epochs 1000 --device cuda:0`
 
-The training logs are stored in the default (running) folder at ./[NAME]/, e.g. for ResNet13+ALN, it is stored in ./CALN_ResNet13_Cifar10. Use `--logdir` to change the default `./`. To prevent losing past experiments, it is not allowed to overwrite on an existing folder. The only folder that can be overwrriten automatically is `test`. That is, one can use `test` as the experiment name and the previous test experiments are overwritten.
+The training logs are stored in the default (running) folder at **./[NAME]/**, e.g. for **ResNet13+ALN**, it is stored in **./CALN_ResNet13_Cifar10/**. Use `--logdir` to change the default `./`. To prevent losing past experiments, it is not allowed to overwrite on an existing folder. The only folder that can be overwrriten automatically is `test`. That is, one can use `test` as the experiment name and the previous test experiments are overwritten.
 
 The CIFAR-10 dataset is sought in the root folder `./`, if it does not exist, it automatically downloads it. To change the path for CIFAR-10 dataset use `--cifar10_path [NEW_PATH]` argument.
 
