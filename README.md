@@ -1,8 +1,9 @@
-# Convolutional Adaptive Logic Networks
+# Convolutional Adaptive Logic Networks (CALNs)
 
 ## Introduction
 
-This repository implements a minimum necessary codebase for creating, training and evaluating CALNs.
+This repository implements a minimum necessary codebase for creating, training and evaluating CALNs documented
+in the paper: [Convolutional Adaptive Logic Networks: A First Approach](https://github.com/microsoft/ConvolutionALNs/blob/main/aln_paper.pdf).
 
 ## Instructions for usage
 
@@ -36,7 +37,7 @@ The main class that implements CALN is `ConvolutionALNet` in core/caln.py. A sam
 `adapt` should be used at each training iteration to update ALN weights.
 `grow` should be used at split iteration.
 
-The main code, that trains a variety of CALNs on CIFAR-10 dataset is in trainings/train_cifar10.py. The command line input options to this script is described in training/common_utils.py. You can also see the list by entering `$ python train_cifar10.py` at the command line in trainings/ folder. Note that train_cifar10.py can also be used to train a couple of ResNet architectures. You can use the following command lines to approximately reproduce the reported results in the paper (all of the experiments run on GPU):
+The main code, that trains a variety of CALNs on CIFAR-10 dataset is in caln/trainings/train_cifar10.py. The command line input options to this script is described in training/common_utils.py. You can also see the list by entering `$ python train_cifar10.py` at the command line in trainings/ folder. Note that train_cifar10.py can also be used to train a couple of ResNet architectures. You can use the following command lines to approximately reproduce the reported results in the paper (all of the experiments run on GPU):
 
 * ResNet13+ALN:
 `python train_cifar10.py --name CALN_ResNet13_Cifar10 --model CALN --optimizer SGD --epochs 1000 --lr 0.1 --aln_lr 0.01 --init_pieces 3 --root_op min --split_step 15 --max_splits 1  --split_step_increment 2 --device cuda:0`
