@@ -9,17 +9,17 @@ This repository implements a minimum necessary codebase for creating, training a
 ### Requirements
 
 The code in this repository is tested under the following requirements:
-pytorch: 1.11.0 (stable)
-cuda: 10.2
-tensorboard: 2.0.0
-scikit-learn: 1.0.2
-matplotlib: 3.5.1
-prettytable: 3.2.0
-wandb: 0.12.15 (only required if WandB is used for logging and monitoring)
+ - pytorch: 1.11.0 (stable)
+ - cuda: 10.2
+ - tensorboard: 2.0.0
+ - scikit-learn: 1.0.2
+ - matplotlib: 3.5.1
+ - prettytable: 3.2.0
+ - wandb: 0.12.15 (only required if WandB is used for logging and monitoring)
 
 ### Installation
 
-This is a development codebase. Therefore, it is suggested to install this repo as a Python development package:
+This is a development codebase. Therefore, it is suggested to install the code in the caln subdirectory as a Python development package:
 
 ```
 
@@ -30,7 +30,7 @@ pip install -e .
 
 ### General usage and guidelines
 
-The main class that implements CALN is `ConvolutionALN` in core/caln.py. A sample usage is given in trainings/models.py. Basically, `ConvolutionALN` receives a backbone and attaches an ALN at its end. Note that the ALN weights are not updated by a gradient descent method. However, the gradients are propagated through the ALN back to the backbone weights.
+The main class that implements CALN is `ConvolutionALNet` in core/caln.py. A sample usage is given in trainings/models.py. Basically, `ConvolutionALNet` receives a backbone and attaches an ALN at its end. Note that the ALN weights are not updated by a gradient descent method. However, the gradients are propagated through the ALN back to the backbone weights.
 
 `forward` method receives a tensor and runs the entire network to produce the output.
 `adapt` should be used at each training iteration to update ALN weights.
