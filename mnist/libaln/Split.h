@@ -81,7 +81,7 @@ namespace aln
             }
 
             size_t count;           // number of points seen
-            double sse;             // total squared error accumulated during adaptation
+            double sse;             // total squared error accumulated during evaluation
             std::vector<double> b;  // average convexity
 
             std::mutex mutex;       // prevent simultaneous updates
@@ -157,10 +157,6 @@ namespace aln
                 auto& stats = splitStats[i];
                 if (stats.count == 0 || !lu.IsSplitAllowed())
                     return;
-
-                // TODO: see NANO doSplits() for split count thresholds
-                // there seems to be different thresholds for classification and regression;
-                // ... we'll use the classification path for now
 
                 auto const luRMSError = std::sqrt(stats.sse / static_cast<double>(stats.count));
                 if (stats.count >= minPointsPerSplit && luRMSError > desiredRMSError)

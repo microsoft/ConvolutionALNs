@@ -31,9 +31,9 @@ SOFTWARE.
 namespace aln
 {
     /// <summary>
-    /// Adapts the network to reduce the distance between the network surface and the value at <see cref="OutputIndex()"/> 
-    /// represented by the specified evaluation result, which should be obtained by calling <see cref="Evaluate()"/> prior
-    /// to calling <see cref="Adapt()"/>.
+    /// Adapts the network to reduce the distance between the network surface and the value 
+    /// represented by the specified evaluation result, which should be obtained by calling 
+    /// <see cref="Evaluate()"/> prior to calling <see cref="Adapt()"/>.
     /// </summary>
     /// <param name="aln"></param>
     /// <param name="adaptRate">Adaptation rate in (0, 1].</param>
@@ -109,7 +109,7 @@ namespace aln
                 {
                     // update variance before updating centroid
                     d[i] += static_cast<T>((xMinusC * xMinusC - d[i]) * adaptRate); // this rate not used for error correction
-                    d[i] = std::max(d[i], static_cast<T>(0.0000001));               // d cannot be zero
+                    d[i] = (std::max)(d[i], static_cast<T>(0.0000001));               // d cannot be zero
 
                     // update weight preserving units: output unit / input unit of this axis
                     w[i] -= static_cast<T>(error * distributedRate * xMinusC / d[i]);

@@ -47,7 +47,7 @@ namespace aln
     /// <param name="dataSet">Iterator to the first point of the data set.</param>
     /// <param name="count">The number of data points to evaluate.</param>
     /// <param name="totalEvaluations">The total number of node evaluations performed during training.</param>
-    /// <param name="resultPool">A pool of results that can be used during evaluation. The capacity of the pool may limit the number of parallel invocations of <paramref name="callback"/>.</param>
+    /// <param name="resultPool">A pool of results that can be used during evaluation. The capacity of the pool may limit parallelism.</param>
     /// <param name="rng"></param>
     /// <param name="positiveClassRatio">For regression data, leave at 1.0. For binary classification domains, this is the expected proportion of positive class samples to negative class samples.</param>
     /// <returns>The RMS error achieved on the dataset by the network.</returns>
