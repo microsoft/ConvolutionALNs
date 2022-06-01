@@ -65,29 +65,29 @@ namespace mnist
                 });
         }
 
-    template<typename RandomAccessIterator>
-    int Evaluate(RandomAccessIterator const dataPoint) const
-    {
-        // evaluate the ten classifiers in parallel
-        std::array<T, 10> values;
+        template<typename RandomAccessIterator>
+        int Evaluate(RandomAccessIterator const dataPoint) const
+        {
+            // evaluate the ten classifiers in parallel
+            std::array<T, 10> values;
         
-        std::for_each_n(
-            aln::ParallelUnsequenced,
-            begin(_digitRange),
-            _digitRange.size(),
-            [&](auto const digit)
-            {
-                auto const& aln = _alns[digit];
-                values[digit] = aln::Evaluate(aln, dataPoint);
-            });
+            std::for_each_n(
+                aln::ParallelUnsequenced,
+                begin(_digitRange),
+                _digitRange.size(),
+                [&](auto const digit)
+                {
+                    auto const& aln = _alns[digit];
+                    values[digit] = aln::Evaluate(aln, dataPoint);
+                });
 
 
-        // the index of the (first) classifier with the max value is the resulting label
-        auto maxElement = std::max_element(begin(values), end(values));
-        auto maxIndex = maxElement - begin(values);
+            // the index of the (first) classifier with the max value is the resulting label
+            auto maxElement = std::max_element(begin(values), end(values));
+            auto maxIndex = maxElement - begin(values);
 
-        return static_cast<int>(maxIndex);
-    }
+            return static_cast<int>(maxIndex);
+        }
 
     private:
         std::array<aln::Network<T>, 10> _alns;
@@ -105,8 +105,6 @@ namespace mnist
             throw std::invalid_argument("invalid data set dimension");
 
         // gather the label results 
-        // ... we run sequentially in order to evaluate execution time per point without
-
         std::vector<int> labelResults(dataSet.size());
         auto const indexRange = aln::make_range(dataSet.size());
         std::for_each_n(
